@@ -1,0 +1,126 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #000000;
+            font-family: 'Arial', sans-serif;
+        }
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .button {
+            background-color: #333333;
+            color: #ffffff;
+            font-size: 1.5rem;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .button:active {
+            background-color: #555555;
+        }
+        .button.orange {
+            background-color: #ff9500;
+        }
+        .button.orange:active {
+            background-color: #cc7a00;
+        }
+        .button.gray {
+            background-color: #a6a6a6;
+        }
+        .button span {
+            color: #ff9500;
+        }
+        .display {
+            grid-column: span 4;
+            color: #ffffff;
+            font-size: 2.5rem;
+            text-align: right;
+            padding: 20px;
+            border-bottom: 1px solid #333333;
+        }
+        .result {
+            grid-column: span 4;
+            color: #a6a6a6;
+            font-size: 1.5rem;
+            text-align: right;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display" class="display">0</div>
+        <div id="result" class="result"></div>
+        <div class="button"><i class="fas fa-clock"></i></div>
+        <div class="button"><i class="fas fa-bell"></i></div>
+        <div class="button">mc</div>
+        <div class="button">m+</div>
+        <div class="button">m-</div>
+        <div class="button">mr</div>
+        <div class="button orange" onclick="clearDisplay()">AC</div>
+        <div class="button" onclick="deleteLast()"><i class="fas fa-arrow-left"></i></div>
+        <div class="button" onclick="appendCharacter('+/-')">+/-</div>
+        <div class="button" onclick="appendCharacter('/')">÷</div>
+        <div class="button" onclick="appendCharacter('*')">×</div>
+        <div class="button" onclick="appendCharacter('-')">-</div>
+        <div class="button" onclick="appendCharacter('+')">+</div>
+        <div class="button" onclick="appendCharacter('%')">%</div>
+        <div class="button" onclick="appendCharacter('7')">7</div>
+        <div class="button" onclick="appendCharacter('8')">8</div>
+        <div class="button" onclick="appendCharacter('9')">9</div>
+        <div class="button" onclick="appendCharacter('4')">4</div>
+        <div class="button" onclick="appendCharacter('5')">5</div>
+        <div class="button" onclick="appendCharacter('6')">6</div>
+        <div class="button" onclick="appendCharacter('1')">1</div>
+        <div class="button" onclick="appendCharacter('2')">2</div>
+        <div class="button" onclick="appendCharacter('3')">3</div>
+        <div class="button" onclick="appendCharacter('0')">0</div>
+        <div class="button" onclick="appendCharacter('.')">.</div>
+        <div class="button orange" onclick="calculateResult()">=</div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let result = document.getElementById('result');
+
+        function clearDisplay() {
+            display.innerText = '0';
+            result.innerText = '';
+        }
+
+        function deleteLast() {
+            if (display.innerText.length > 1) {
+                display.innerText = display.innerText.slice(0, -1);
+            } else {
+                display.innerText = '0';
+            }
+        }
+
+        function appendCharacter(char) {
+            if (display.innerText === '0') {
+                display.innerText = char;
+            } else {
+                display.innerText += char;
+            }
+        }
+
+        function calculateResult() {
+            try {
+                result.innerText = eval(display.innerText.replace('×', '*').replace('÷', '/'));
+            } catch (e) {
+                result.innerText = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
